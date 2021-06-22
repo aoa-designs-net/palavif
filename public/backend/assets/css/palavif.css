@@ -1,0 +1,107 @@
+.bg-palavif {
+    background-color: #cba06a;
+}
+
+.bg-palavif-secondary {
+    background-color: #7c4700 !important;
+}
+
+.bg-palavif-primary {
+    background-color: #c88751;
+}
+
+.color-palavif {
+    color: #7c4700;
+}
+
+.btn-palavif {
+    background-color: #7c4700;
+    border-color: #e7eaf3;
+}
+
+.text-palavif {
+    color: #7c4700 !important;
+}
+
+.text-hover:hover {
+    color: #7c4700 !important;
+}
+
+.btn-ghost-palavif:hover {
+    color: #7c4700;
+    background-color: #c88751;
+}
+
+.btn-palavif-primary {
+    color: #fff;
+    background-color: #7c4700;
+    border-color: #7c46002f;
+}
+
+.btn-palavif-primary:hover {
+    color: #fff;
+    background-color: #7c46002f;
+    border-color: #7c46002f;
+}
+
+.btn-palavif-primary.focus,
+.btn-palavif-primary:focus {
+    color: #fff;
+    background-color: #7c46002f;
+    border-color: #7c46002f;
+    box-shadow: 0 0 0 0.2rem rgba(85, 145, 255, 0.5);
+}
+
+.btn-palavif-primary.disabled,
+.btn-palavif-primary:disabled {
+    color: #fff;
+    background-color: #7c4700;
+    border-color: #7c46002f;
+}
+
+.btn-palavif-primary:not(:disabled):not(.disabled).active,
+.btn-palavif-primary:not(:disabled):not(.disabled):active,
+.show>.btn-palavif-primary.dropdown-toggle {
+    color: #fff;
+    background-color: #7c4700;
+    border-color: #7c46002f;
+}
+
+.btn-palavif-primary:not(:disabled):not(.disabled).active:focus,
+.btn-palavif-primary:not(:disabled):not(.disabled):active:focus,
+.show>.btn-palavif-primary.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.2rem rgba(85, 145, 255, 0.5);
+}
+
+.text-palavif-muted {
+    color: #ffffff !important;
+}
+
+.text-palavif-muted[href]:hover {
+    color: #7c46002f !important;
+}
+
+.input-label-palavif-secondary {
+    color: #ffffff;
+    font-size: 0.8125rem;
+    margin-left: 0.25rem;
+}
+
+.bg-palavif-dark {
+    background-color: #7C4700 !important;
+}
+
+a.bg-dark:focus,
+a.bg-dark:hover,
+button.bg-dark:focus,
+button.bg-dark:hover {
+    background-color: #7C4700 !important;
+}
+
+.navbar-palavif-dark {
+    background-color: #7C4700 !important;
+}
+
+.navbar-palavif-dark .navbar-collapse {
+    background-color: transparent;
+}
