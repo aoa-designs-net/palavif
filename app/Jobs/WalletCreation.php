@@ -42,10 +42,11 @@ class WalletCreation implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(User $user, $token)
+    public function __construct(User $user)
     {
         $this->user = $user;
-        $this->token = $token;
+        // $this->token = $token;
+        $this->getAccessToken();
     }
 
     /**
@@ -95,5 +96,16 @@ class WalletCreation implements ShouldQueue
         }
 
         ActivityReporter::reporting($this->user->id, "Profile", 'informational', '', $this->user->name . ' Created A Wallet');
+    }
+
+    /**
+     * Get the Access Token from Monnify.
+     *
+     * @return string
+     */
+    protected function getAccessToken()
+    {
+        $monnify_auth = Http::retry(2, 100)->withToken(base64_encode(env('MONNIFY_API_KEY') . ':' . env('MONNIFY_SECRET_KEY')), 'Basic')->post('https://sandbox.monnify.com/api/v1/auth/login', []);
+        (string)$this->token = $monnify_auth->json()['responseBody']['accessToken'];
     }
 }

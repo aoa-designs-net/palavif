@@ -69,6 +69,7 @@ Route::middleware('guest')->group(function () {
 
     Route::post('monnify-incoming', [\App\Http\Controllers\Wallet\MonnifyController::class, '__invoke']);
 });
+
 Route::post('wallet-creation', [CreateWalletController::class, 'initialize'])->name('wallet.create');
 
 Route::prefix('authentication')->group(function () {

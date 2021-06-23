@@ -19,7 +19,6 @@ class CreateWalletController extends Controller
     public function initialize(Request $request)
     {
         if ($request->ajax()) {
-            // return true;
             // validate Request
             $request->validate([
                 'account_number_bank' => 'required|numeric|unique:user_bank_accounts,account_number',
@@ -39,13 +38,12 @@ class CreateWalletController extends Controller
             ]);
             return $response->json();
         }
-        $monnify_auth = Http::retry(2, 100)->withToken(base64_encode(env('MONNIFY_API_KEY') . ':' . env('MONNIFY_SECRET_KEY')), 'Basic')->post('https://sandbox.monnify.com/api/v1/auth/login', []);
-        (string )$accessToken = $monnify_auth->json()['responseBody']['accessToken'];
+
         // Step 2 Create Virtual Account on Monnify
-        \App\Jobs\WalletCreation::dispatch($request->user(), $accessToken);
-
-        // dd($accessToken, collect($accessToken)->isNotEmpty());
-
-        return back()->with('success', 'Account Creation initiated');
+        if ($request->user()->has('bank_account')) {
+            \App\Jobs\WalletCreation::dispatch($request->user());
+            return back()->with('success', 'Account Creation initiated');
+        }
+        return back()->with('error', 'Bank Account not Verified');
     }
 }
