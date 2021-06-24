@@ -7,7 +7,6 @@ use App\Http\Controllers\Auth\Register\EmailController;
 use App\Http\Controllers\Auth\Login\EmailController as LoginWithEmailController;
 use App\Http\Controllers\Portal\ClientController;
 use App\Http\Controllers\UserWalletController;
-use App\Http\Controllers\Verification\EmailController as VerificationEmailController;
 use App\Http\Controllers\Wallet\CreateWalletController;
 
 
@@ -64,7 +63,7 @@ Route::middleware('guest')->group(function () {
     });
 
     Route::prefix('verification')->name('verify.')->group(function () {
-        Route::get('email', [VerificationEmailController::class, 'index'])->name('email');
+        Route::get('email', [\App\Http\Controllers\Verification\EmailController::class, 'index'])->name('email');
     });
 
     Route::post('monnify-incoming', [\App\Http\Controllers\Wallet\MonnifyController::class, '__invoke']);
