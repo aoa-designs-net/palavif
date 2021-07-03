@@ -14,6 +14,13 @@ class WalletTransaction extends Model
     const TYPE = ['debit' => 'DEBIT', 'credit' => 'CREDIT'];
 
     /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded = ['created_at', 'updated_at', 'deleted_at', 'transaction_id'];
+
+    /**
      * The attributes that should be hidden for arrays.
      *
      * @var array

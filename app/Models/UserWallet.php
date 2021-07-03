@@ -46,4 +46,12 @@ class UserWallet extends Model
             $transaction->wallet_id = \App\Traits\GenerateUniqueIdentity::generate('user_wallets', 'WAL-', 'wallet_id'); // Generate Unique Wallet ID
         });
     }
+
+    /**
+     * Get the User that owns this wallet.
+     */
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id','user_id');
+    }
 }

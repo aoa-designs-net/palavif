@@ -40,7 +40,7 @@ trait UpdateWallet
     {
         return $wallet->update([
             'opening_balance' => $wallet->closing_balance,
-            'closing_balance' => self::balance($wallet->closing_balance, $wallet['amount'], $transaction['type'])
+            'closing_balance' => self::balance($wallet->closing_balance, $transaction['amount'], $transaction['type'])
         ]);
     }
 
