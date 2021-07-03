@@ -100,7 +100,8 @@ class EmailController extends Controller
             return redirect()->route('register.email.part.two', ['temp' => $request->user])->withErrors($validator);
         }
 
-        event(new Registered($user = $this->createUser($request->all())));
+        $user = $this->createUser($request->all());
+        // event(new Registered($user));
 
         $this->guard()->login($user);
 
@@ -128,7 +129,7 @@ class EmailController extends Controller
             'your-username'  => ['required', 'string', 'max:180', 'unique:users,username'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'location' => ['required', 'string'],
-            'userPhoneNumber' => ['required', 'string'],
+            'userPhoneNumber' => ['required', 'string', 'unique:users,username'],
             'placer_username'  => 'nullable|exists:users,username',
             'accept_terms_privacy' => ['required', 'accepted']
         ]);

@@ -46,7 +46,7 @@ trait CreateUser
                 'name' => $valid['first-name'] . " " . $valid['last-name'],
                 'email' => $valid['email_address'],
                 'username' => $valid['your-username'],
-                'phone_number' => $valid['userPhoneNumber'],
+                'phone_number' => PreparePhoneNumber::take($valid['userPhoneNumber']),
                 'password' => Hash::make($valid['password']),
             ]);
             // Register User Account details
@@ -54,7 +54,7 @@ trait CreateUser
                 'first_name'            => $valid['first-name'],
                 'last_name'             => $valid['last-name'],
                 'date_of_birth'         => $valid['date_of_birth'],
-                'phone_number'          => $valid['userPhoneNumber'],
+                'phone_number'          => $user->phone_number,
                 'phone_country'         => $valid['location'],
                 'location'              => $valid['location'],
                 'sponser_username'      => $valid['sponsor-username'],

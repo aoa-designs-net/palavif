@@ -25,7 +25,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
 
             $table->string('username')->unique()->nullable();
-            $table->string('phone_number')->unique()->nullable();
+            $table->string('phone_number', 60)->unique();
 
             $table->enum('type', ['admin', 'client', 'owner'])->default('client');
 
