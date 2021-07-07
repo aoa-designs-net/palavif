@@ -8,13 +8,25 @@ use Illuminate\Http\Request;
 class UserWalletController extends Controller
 {
     /**
+     * Create the controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        // 
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        // dd(request()->user()->wallet);
+        if (!request()->user()->wallet) {
+            return back()->with('error', 'Wallet not available');
+        }
         return view('dashboard.client.wallet.index', [
             'wallet' => request()->user()->wallet
         ]);
