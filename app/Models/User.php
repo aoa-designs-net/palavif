@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
+use App\Scopes\ActiveScope;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -57,6 +58,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected static function booted()
     {
+        static::addGlobalScope(new ActiveScope);
         static::creating(function ($user) {
             $user->uuid = (string) \Illuminate\Support\Str::uuid(); // Create uuid when a new user is to be created 
         });

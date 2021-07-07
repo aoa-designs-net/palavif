@@ -86,18 +86,14 @@
                     <!-- End Form Group -->
 
                     <div class="d-flex justify-content-end" id="create_wallet_div">
-                        <button disabled id="create_wallet_btn" type="submit" class="btn btn-primary">Create
-                            Wallet</button>
+                        <button disabled id="create_wallet_btn" type="submit" class="btn btn-primary">Create  Wallet</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
-<button id="create-wallet-modal" type="button" class="btn btn-primary d-none" data-toggle="modal"
-    data-target="#staticBackdrop">
-    Wallet
-</button>
+<button id="create-wallet-modal" type="button" class="btn btn-primary d-none" data-toggle="modal" data-target="#staticBackdrop">  Wallet  </button>
 @push('css')
     <style>
         .invalid-feedback {
@@ -175,7 +171,7 @@
                             )
                         } else {
                             $('#create_wallet_div').html(
-                                '<button id="create_wallet_btn" type="submit" class="btn btn-primary">Create Wallet</button>'
+                                '<button disabled id="create_wallet_btn" type="submit" class="btn btn-primary">Create Wallet</button>'
                             )
                         }
 
