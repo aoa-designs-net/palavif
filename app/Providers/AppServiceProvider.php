@@ -24,7 +24,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
         Schema::DefaultStringLength(191);
+        view()->composer('includes.header', function ($view) {
+
+            $view->with([
+                // 'profile_image'   =>  ,
+            ]);
+        });
     }
 }

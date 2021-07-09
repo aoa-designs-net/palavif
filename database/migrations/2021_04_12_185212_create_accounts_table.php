@@ -33,7 +33,7 @@ class CreateAccountsTable extends Migration
 
             $table->string('sponser_username')->nullable();
 
-            $table->enum('gender', \App\Models\User::GENDER);
+            $table->enum('gender', \App\Models\Account::GENDER);
 
             $table->mediumText('avatar')->nullable();
 

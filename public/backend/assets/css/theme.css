@@ -19569,18 +19569,18 @@ label.btn {
 
 .card[href]:hover .card-header-title,
 .card[href]:hover .card-title {
-    color: #0052ea;
+    color: #7c4700a3;
 }
 
 .card-title {
     display: block;
-    color: #1e2022;
+    color: #7c4700;
     margin-bottom: 0;
 }
 
 .card-subtitle {
     display: block;
-    color: #8c98a4;
+    color: #7c4700;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.03125rem;

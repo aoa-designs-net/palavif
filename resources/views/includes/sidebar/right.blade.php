@@ -1,4 +1,3 @@
-<div class="col-lg-3">
 
     <div class="card card-body mb-3 mb-lg-5">
         <h5>Complete your profile</h5>
@@ -102,4 +101,3 @@
         </div>
     </div>
     <!-- End Card -->
-</div>

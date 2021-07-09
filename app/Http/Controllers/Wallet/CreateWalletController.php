@@ -20,15 +20,27 @@ class CreateWalletController extends Controller
     {
         if ($request->ajax()) {
             // validate Request
-            $request->validate([
-                'account_number_bank' => 'required|numeric|unique:user_bank_accounts,account_number',
-                'bank_code'            => 'required|string'
+            // $request->validate([
+            //     'account_number_bank' => 'bail|required|numeric|unique:user_bank_accounts,account_number',
+            //     'bank_code'            => 'bail|required|string'
+            // ]);
+            $validator = \Illuminate\Support\Facades\Validator::make($request->all(), [
+                'account_number_bank' =>  'bail|required|numeric|unique:user_bank_accounts,account_number',
+                'bank_code'            => 'bail|required|string'
             ]);
+            if ($validator->fails()) {
+                return response()->json([
+                    'errors' => $validator->errors(),
+                    'error' => 'The account number bank has already been taken.'
+                ], 422);
+            }
             // Step 1 Make Request to Paystack to Confirm User Account Number Details
-            $response = Http::retry(2, 100)->withToken(env('PAYSTACK_SECRET_KEY'))->get('https://api.paystack.co/bank/resolve',  ['account_number' => $request->account_number_bank, 'bank_code' => $request->bank_code]);
+            $response = Http::withToken(env('PAYSTACK_SECRET_KEY'))->get('https://api.paystack.co/bank/resolve',  ['account_number' => $request->account_number_bank, 'bank_code' => $request->bank_code]);
 
             if (($response->clientError()) || ($response->serverError()) || ($response->failed()) || ($response->collect()->get('status') !== true)) {
-                return $response->throw()->json();
+                return response()->json([
+                    'error' => 'Error verifying account number'
+                ], $response->status());
             }
             $data = $response->collect()->get('data');
             $request->user()->bank_account()->create([

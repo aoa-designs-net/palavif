@@ -3,11 +3,13 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
-use App\Http\Controllers\Auth\Register\EmailController;
-use App\Http\Controllers\Auth\Login\EmailController as LoginWithEmailController;
 use App\Http\Controllers\Portal\ClientController;
-use App\Http\Controllers\UserWalletController;
+use App\Http\Controllers\Portal\WalletController;
+use App\Http\Controllers\Portal\ProfileController;
+use App\Http\Controllers\Portal\TransactionController;
+use App\Http\Controllers\Auth\Register\EmailController;
 use App\Http\Controllers\Wallet\CreateWalletController;
+use App\Http\Controllers\Auth\Login\EmailController as LoginWithEmailController;
 
 
 /*
@@ -32,7 +34,9 @@ Route::prefix('administrator')->name('administrator.')->group(function () {
 
 Route::prefix('dashboard')->middleware('auth')->name('dashboard.')->group(function () {
     Route::get('/', [ClientController::class, 'index'])->name('index');
-    Route::resource('wallet', UserWalletController::class);
+    Route::resource('wallet', WalletController::class);
+    Route::resource('profile', ProfileController::class);
+    Route::resource('transaction', TransactionController::class);
 });
 
 Route::middleware('guest')->group(function () {

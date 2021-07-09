@@ -15,7 +15,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public const STATUS = ['active', 'inactive', 'suspended'];
     public const LEVEL = ['unpaid', 'paid'];
-    public const GENDER = ['male', 'female', 'others'];
+    
 
     /**
      * The attributes that aren't mass assignable.
@@ -87,4 +87,5 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasOne(UserWallet::class);
     }
+    
 }

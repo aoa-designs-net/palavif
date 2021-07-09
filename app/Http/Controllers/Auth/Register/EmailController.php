@@ -24,7 +24,6 @@ class EmailController extends Controller
     | registration as well as their validation and creation. 
     |
     */
-
     use CreateUser, RedirectsUsers, TemporaryStorage;
 
     /**
@@ -33,6 +32,7 @@ class EmailController extends Controller
      * @var string
      */
     protected $redirectTo = RouteServiceProvider::HOME;
+
     /**
      * Create a new controller instance.
      *
@@ -74,7 +74,7 @@ class EmailController extends Controller
     public function registerPartOne(Request $request)
     {
         $validated = $this->validate($request, [
-            'form-part'             => 'required|string|in:ONE,TWO',
+            'form-part'             => 'required|string|in:ONE',
             'sponsor-username'      => ['nullable', 'exists:users,username'],
             'sponsor-availability'  => ['sometimes', 'nullable'],
             'first-name'            => ['required', 'string', 'max:180'],
@@ -82,7 +82,7 @@ class EmailController extends Controller
             'gender-select'         => ['required', 'string', 'in:male,female,others'],
             'date_of_birth'         => ['required', 'string', 'date_format:Y-m-d'],
             'email_address'         => ['required', 'string', 'email', 'max:180', 'unique:users,email'],
-        ],['sponsor-username.exists' => 'Sponsor username doesn\'t exist',]);
+        ], ['sponsor-username.exists' => 'Sponsor username doesn\'t exist',]);
         return collect($partOneFormData = $this->storeTemp($validated))->isNotEmpty()
             ? redirect()->route('register.email.part.two', ['temp' => $partOneFormData->uuid])
             : back()->withInputs();
@@ -132,7 +132,7 @@ class EmailController extends Controller
             'userPhoneNumber' => ['required', 'string', 'unique:users,username'],
             'placer_username'  => 'nullable|exists:users,username',
             'accept_terms_privacy' => ['required', 'accepted']
-        ]);
+        ], ['your-username.unique' => 'The username already exist',]);
     }
 
     /**
@@ -154,6 +154,6 @@ class EmailController extends Controller
      */
     protected function registered(Request $request, $user)
     {
-        //
+        return $request->session()->flash('new_registered_user', true);
     }
 }

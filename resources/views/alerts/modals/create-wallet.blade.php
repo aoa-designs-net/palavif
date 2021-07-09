@@ -1,4 +1,4 @@
-<div class="modal fade bd-example-modal-lg" id="staticBackdrop" tabindex="-1" role="dialog"
+<div class="modal fade bd-example-modal-lg" id="create-wallet-modal" tabindex="-1" role="dialog"
     aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -86,26 +86,30 @@
                     <!-- End Form Group -->
 
                     <div class="d-flex justify-content-end" id="create_wallet_div">
-                        <button disabled id="create_wallet_btn" type="submit" class="btn btn-primary">Create  Wallet</button>
+                        <button disabled id="create_wallet_btn" type="submit" class="btn btn-primary">Create
+                            Wallet</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
-<button id="create-wallet-modal" type="button" class="btn btn-primary d-none" data-toggle="modal" data-target="#staticBackdrop">  Wallet  </button>
-@push('css')
+@prepend('css')
     <style>
         .invalid-feedback {
             color: #7c4700;
         }
 
     </style>
-@endpush
-@push('js')
+@endprepend
+@prepend('js')
     <script>
-        document.querySelector("#create-wallet-modal").click();
         $(document).on('ready', function() {
+            // INITIALIZATION OF SELECT2
+            // =======================================================
+            $('.js-select2-custom').each(function() {
+                var select2 = $.HSCore.components.HSSelect2.init($(this));
+            });
 
             // INITIALIZATION OF FORM VALIDATION
             // =======================================================
@@ -161,8 +165,10 @@
                         }
                     },
                     error: function(error) {
-                        console.log(error.responseJSON.message)
-                        alert(error.responseJSON.message);
+                        if (error.responseJSON.message == 'The given data was invalid.') {
+                            return alert('The account number bank has already been taken.');
+                        }
+                        return alert(error.responseJSON.error);
                     },
                     complete: function(e, status) {
                         if (status !== 'error') {
@@ -174,11 +180,10 @@
                                 '<button disabled id="create_wallet_btn" type="submit" class="btn btn-primary">Create Wallet</button>'
                             )
                         }
-
                     },
                 });
             }
+            $('#create-wallet-modal').modal()
         });
-
     </script>
-@endpush
+@endprepend
