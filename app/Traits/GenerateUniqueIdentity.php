@@ -95,7 +95,7 @@ trait GenerateUniqueIdentity
      *
      * @return string
      */
-    protected static function uniqueReference(string $tableName = null, string $columnName = null,  int $stringLength = 13)
+    protected static function uniqueReference(string $tableName = null, string $columnName = null,  int $stringLength = 15)
     {
         // Store tested results in array to not test them again
         $tested = [];

@@ -47,7 +47,7 @@ class MonnifyController extends Controller
         \Illuminate\Support\Facades\DB::transaction(function () use ($body) {
             // Check webhook type of transaction
             if (!empty($body['product']['type']) &&  ($body['product']['type'] == WebhookPayment::TYPE['monnify_reserved_account'])) {
-                $user_wallet = \App\Models\UserWallet::where('virtual_account_reference', $body['product']['reference'])->with('user')->firstOrFail();
+                $user_wallet = \App\Models\UserWallet::where('account_reference', $body['product']['reference'])->with('user')->firstOrFail();
                 $transaction = WalletTransaction::create([
                     'user_id' => $user_wallet['user']['id'],
                     'amount' => $body['settlementAmount'],

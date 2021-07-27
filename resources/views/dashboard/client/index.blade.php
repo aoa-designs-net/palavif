@@ -38,7 +38,7 @@
 @endsection
 
 @section('content')
-    @includeUnless($user_wallet, 'alerts.modals.create-wallet')
+    {{-- @includeUnless($user_wallet, 'alerts.modals.create-wallet') --}}
     @includeWhen($new_registered_user, 'alerts.modals.welcome-message', ['user' => $user])
     {{-- Card Overview --}}
     <div id="overview" class="row">
@@ -113,12 +113,8 @@
             <div id="collapseExample" class="collapse">
                 <!-- Quill -->
                 <div class="quill-custom">
-                    <div class="js-quill" style="min-height: 2rem;" data-hs-quill-options='{
-                                                        "placeholder": "How are you feeling?",
-                                                            "modules": {
-                                                            "toolbar": false
-                                                            }
-                                                        }'>
+                    <div class="js-quill" style="min-height: 2rem;"
+                        data-hs-quill-options='{"placeholder": "How are you feeling?", "modules": {"toolbar": false} }'>
                     </div>
                 </div>
                 <!-- End Quill -->

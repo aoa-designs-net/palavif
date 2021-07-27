@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Auth\Register;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Events\Registered;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RedirectsUsers;
+use App\Http\Requests\EmailRegistrationRequest;
 use App\Http\Controllers\Auth\Traits\CreateUser;
 use App\Http\Controllers\Auth\Traits\TemporaryStorage;
 
@@ -80,9 +80,9 @@ class EmailController extends Controller
             'first-name'            => ['required', 'string', 'max:180'],
             'last-name'             => ['required', 'string', 'max:180'],
             'gender-select'         => ['required', 'string', 'in:male,female,others'],
-            'date_of_birth'         => ['required', 'string', 'date_format:Y-m-d'],
-            'email_address'         => ['required', 'string', 'email', 'max:180', 'unique:users,email'],
-        ], ['sponsor-username.exists' => 'Sponsor username doesn\'t exist',]);
+            'date_of_birth'         => ['required', 'string', 'date_format:Y-m-d', 'before:' . now()->subYears('18')],
+            'email_address'         => ['required', 'string', 'email:rfc,dns,filter,strict', 'max:180', 'unique:users,email'],
+        ], ['sponsor-username.exists' => 'Sponsor username doesn\'t exist', 'date_of_birth.before' => 'You have to be above 18 years old to register']);
         return collect($partOneFormData = $this->storeTemp($validated))->isNotEmpty()
             ? redirect()->route('register.email.part.two', ['temp' => $partOneFormData->uuid])
             : back()->withInputs();
@@ -90,17 +90,17 @@ class EmailController extends Controller
     /**
      * Handle part two email registration request for the application.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
+     * @param  \App\Http\Requests\EmailRegistrationRequest  $request
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function registerPartTwo(Request $request)
+    public function registerPartTwo(EmailRegistrationRequest $request)
     {
-        $validator =  $this->PartTwovalidator($request->all());
-        if ($validator->fails()) {
-            return redirect()->route('register.email.part.two', ['temp' => $request->user])->withErrors($validator);
-        }
+        // Retrieve the validated input data...
+        $validated = $request->validated();
+        // Define the User Type to be client for basic user
+        $validated = array_merge($validated, ['type' => \App\Models\User::TYPE['client']]);
 
-        $user = $this->createUser($request->all());
+        $user = $this->createUser($validated);
         // event(new Registered($user));
 
         $this->guard()->login($user);
@@ -114,25 +114,6 @@ class EmailController extends Controller
         // return $request->wantsJson()
         //     ? new JsonResponse([], 201)
         //     : redirect($this->redirectPath());
-    }
-
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function PartTwovalidator(array $data)
-    {
-        return Validator::make($data, [
-            'user'      => ['required', 'string', 'uuid', 'exists:temporary_storages,uuid'],
-            'your-username'  => ['required', 'string', 'max:180', 'unique:users,username'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'location' => ['required', 'string'],
-            'userPhoneNumber' => ['required', 'string', 'unique:users,username'],
-            'placer_username'  => 'nullable|exists:users,username',
-            'accept_terms_privacy' => ['required', 'accepted']
-        ], ['your-username.unique' => 'The username already exist',]);
     }
 
     /**

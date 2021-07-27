@@ -20,10 +20,10 @@ class CreateUserWalletsTable extends Migration
             $table->collation = 'utf8mb4_unicode_ci';
 
             $table->id();
-            $table->foreignId('user_id');
+            $table->foreignId('user_id')->constrained()->onUpdate('CASCADE')->onDelete('CASCADE');
 
             $table->string('wallet_id', 191)->comment('e.g. WAL-36786429')->unique();
-            $table->string('virtual_account_reference', 191)->comment('Used For reference to Virtual Account')->unique();
+            $table->string('account_reference', 191)->comment('Used For reference to Virtual Account')->unique();
             $table->unsignedInteger('opening_balance')->default('0');
             $table->unsignedInteger('closing_balance')->default('0')->comment('Display this balance to the user');
 

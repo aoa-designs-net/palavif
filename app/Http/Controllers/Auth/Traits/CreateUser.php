@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth\Traits;
 
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -42,12 +43,13 @@ trait CreateUser
                 $valid = array_merge($valid, $avaliableRecord['data']);
             }
             // Register the User
-            $user = \App\Models\User::create([
+            $user = User::create([
                 'name' => $valid['first-name'] . " " . $valid['last-name'],
                 'email' => $valid['email_address'],
-                'username' => $valid['your-username'],
+                'username' => \Illuminate\Support\Str::lower($valid['your_username']),
                 'phone_number' => PreparePhoneNumber::take($valid['userPhoneNumber']),
                 'password' => Hash::make($valid['password']),
+                'type' => $valid['type']
             ]);
             // Register User Account details
             $user->account()->create([
@@ -57,14 +59,26 @@ trait CreateUser
                 'phone_number'          => $user->phone_number,
                 'phone_country'         => $valid['location'],
                 'location'              => $valid['location'],
-                'sponser_username'      => $valid['sponsor-username'],
+                'sponsor_id'            => !empty($valid['sponsor-username']) ? $this->getSponsorID($valid['sponsor-username']) : null,
                 'gender'                => $valid['gender-select'],
                 'referral_link'         => env('APP_URL', url()->current()) . '/register?referral=' . $user->username,
             ]);
 
             // Created new User Activity Reporting
-            $this->reporting($user->id, "Profile", 'informational', \Illuminate\Support\Facades\Route::currentRouteAction(), $user->name . ' Account created successfully');
+            $this->reporting($user->id, "Profile", 'informational', \Illuminate\Support\Facades\Route::currentRouteAction() ?? '', $user->name . ' Account created successfully');
         });
         return $user;
+    }
+
+    /**
+     * Handle Creation of New User for the Application
+     *
+     * @param  string $username
+     * 
+     * @return int
+     */
+    protected function getSponsorID(string $username)
+    {
+        return User::where('username', $username)->value('id')->first();
     }
 }

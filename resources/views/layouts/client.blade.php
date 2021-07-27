@@ -73,6 +73,7 @@
         <!-- Content -->
         <div class="content container-fluid" style="margin-top: -18rem;">
             <div class="row">
+               
                 <!-- Left Column SideBar -->
                 <div class="col-lg-3">
                     @include('includes.sidebar.left')
@@ -135,7 +136,7 @@
             $('.js-clipboard').each(function() {
                 var clipboard = $.HSCore.components.HSClipboard.init(this);
             });
-            
+
             // INITIALIZATION OF SCROLL NAV
             // =======================================================
             var scrollspy = new HSScrollspy($('body'), {

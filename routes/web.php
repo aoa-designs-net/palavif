@@ -8,7 +8,6 @@ use App\Http\Controllers\Portal\WalletController;
 use App\Http\Controllers\Portal\ProfileController;
 use App\Http\Controllers\Portal\TransactionController;
 use App\Http\Controllers\Auth\Register\EmailController;
-use App\Http\Controllers\Wallet\CreateWalletController;
 use App\Http\Controllers\Auth\Login\EmailController as LoginWithEmailController;
 
 
@@ -69,11 +68,13 @@ Route::middleware('guest')->group(function () {
     Route::prefix('verification')->name('verify.')->group(function () {
         Route::get('email', [\App\Http\Controllers\Verification\EmailController::class, 'index'])->name('email');
     });
-
-    Route::post('monnify-incoming', [\App\Http\Controllers\Wallet\MonnifyController::class, '__invoke']);
 });
 
-Route::post('wallet-creation', [CreateWalletController::class, 'initialize'])->name('wallet.create');
+
+Route::post('bank-account-resolver', [\App\Http\Controllers\Wallet\AccountResolverController::class, 'handle'])->name('verification.bank_account');
+Route::post('wallet-creation', [\App\Http\Controllers\Wallet\CreateWalletController::class, 'initialize'])->name('wallet.create');
+Route::post('monnify-incoming', [\App\Http\Controllers\Wallet\MonnifyController::class, '__invoke']); // Chain middleware of guest to route
+
 
 Route::prefix('authentication')->group(function () {
 

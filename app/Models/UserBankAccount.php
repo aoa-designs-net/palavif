@@ -12,7 +12,7 @@ class UserBankAccount extends Model
      *
      * @var array
      */
-    protected $hidden = ['user_id', 'verified_by', 'verifier_response'];
+    protected $hidden = ['user_id'];
 
     /**
      * The attributes that aren't mass assignable.
@@ -20,17 +20,7 @@ class UserBankAccount extends Model
      * @var array
      */
     protected $guarded = ['id', 'user_id', 'created_at', 'updated_at'];
-
-    const ACCOUNT_VERIFIER = ['paystack'];
-
-     /**
-     * The attributes that should be cast.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'verifier_response' => 'array',
-    ];
+    
 
     /**
      * The "booted" method of the model.

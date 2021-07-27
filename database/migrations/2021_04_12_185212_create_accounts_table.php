@@ -19,7 +19,8 @@ class CreateAccountsTable extends Migration
             $table->collation = 'utf8mb4_unicode_ci';
 
             $table->id();
-            $table->foreignId('user_id');
+            $table->foreignId('user_id')->constrained()->onUpdate('CASCADE')->onDelete('CASCADE');
+            $table->foreignId('sponsor_id')->nullable();
 
             $table->string('first_name');
             $table->string('last_name');
@@ -31,7 +32,6 @@ class CreateAccountsTable extends Migration
             $table->longText('location');
             $table->string('referral_link')->unique()->nullable();
 
-            $table->string('sponser_username')->nullable();
 
             $table->enum('gender', \App\Models\Account::GENDER);
 

@@ -13,9 +13,10 @@ class User extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory, Notifiable, SoftDeletes;
 
-    public const STATUS = ['active', 'inactive', 'suspended'];
-    public const LEVEL = ['unpaid', 'paid'];
-    
+    const STATUS = ['active' => 'ACTIVE', 'inactive' => 'INACTIVE', 'suspended' => 'SUSPENDED'];
+    const TYPE = ['admin' => 'ADMINISTRATOR', 'client' => 'CLIENT', 'owner' => 'OWNER'];
+    // const LEVEL = ['unpaid', 'paid'];
+
 
     /**
      * The attributes that aren't mass assignable.
@@ -87,5 +88,4 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasOne(UserWallet::class);
     }
-    
 }

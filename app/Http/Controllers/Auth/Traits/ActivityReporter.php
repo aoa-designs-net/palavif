@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth\Traits;
 
+use Illuminate\Support\Str;
 use App\Models\UserActivity;
 
 trait ActivityReporter
@@ -37,7 +38,7 @@ trait ActivityReporter
     {
         return collect(UserActivity::create([
             'user_id'                   =>  $user_id,
-            'type'                      =>  $type,
+            'type'                      =>  Str::lower($type),
             'severity'                  =>  $severity,
             'action_url'                =>  $actionUrl,
             'message'                   =>  $message,

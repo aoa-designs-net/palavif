@@ -11,10 +11,7 @@ trait UpdateWallet
     public $params;
     protected $old;
     protected $addition;
-    // protected const $type = [
-    //     // 
-    // ];
-
+    
     /**
      * Update User Wallet for both debit or credit transactions
      * 

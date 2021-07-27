@@ -8,7 +8,7 @@ trait PreparePhoneNumber
      * Accept Phone number to be formatted
      * 
      * @param  string  $phone_number
-     * @return int
+     * @return \Illuminate\Support\Stringable
      */
     public static function take(string $phone_number)
     {

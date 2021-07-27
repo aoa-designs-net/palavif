@@ -27,9 +27,7 @@ class CreateUsersTable extends Migration
             $table->string('username')->unique()->nullable();
             $table->string('phone_number', 60)->unique();
 
-            $table->enum('type', ['admin', 'client', 'owner'])->default('client');
-
-            $table->enum('level', User::LEVEL)->default('unpaid');
+            $table->enum('type', User::TYPE);
 
             $table->string('password');
 
@@ -37,7 +35,7 @@ class CreateUsersTable extends Migration
             $table->string('provider_id')->nullable();
             $table->string('access_token')->nullable();
 
-            $table->enum('status', User::STATUS)->default('active');
+            $table->enum('status', User::STATUS)->default(User::STATUS['active']);
 
             $table->timestamp('email_verified_at')->nullable();
 

@@ -18,17 +18,17 @@
         <div class="card-body">
             <div class="d-flex justify-content-between align-items-center">
                 <h5>Contact info</h5>
-                <a class="link" href="javascript:;">Edit</a>
+                <a class="link" href="{{route('dashboard.profile.edit', auth()->user()->uuid)}}">Edit</a>
             </div>
 
             <ul class="list-unstyled list-unstyled-py-2">
                 <li>
                     <i class="tio-online mr-2"></i>
-                    anne@example.com
+                    {{auth()->user()->email}}
                 </li>
                 <li>
                     <i class="tio-android-phone-vs mr-2"></i>
-                    +1 (609) 972-22-22
+                    {{auth()->user()->phone_number}}
                 </li>
             </ul>
 

@@ -56,9 +56,9 @@
                 <label id="gender-select" class="input-label"> <strong> Gender </strong></label>
                 <select style="color: white; background-color: transparent; border-color: #7d4700a8;" class="form-control custom-select" name="gender-select" id="gender-select" required data-msg="Please select your gender.">
                     <option selected disabled value="0">Specify your gender</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="others">Other</option>
+                    <option style="color:#7d4700a8" value="male">Male</option>
+                    <option style="color:#7d4700a8" value="female">Female</option>
+                    <option style="color:#7d4700a8" value="others">Other</option>
                 </select>
                 @error('gender-select')
                 <x-alert :message="$message" />

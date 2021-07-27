@@ -20,7 +20,7 @@ class CreateWalletTransactionsTable extends Migration
             $table->collation = 'utf8mb4_unicode_ci';
 
             $table->id();
-            $table->foreignId('user_id');
+            $table->foreignId('user_id')->constrained()->onUpdate('CASCADE')->onDelete('CASCADE');
             $table->string('transaction_id', 191)->unique()->comment('e.g. TR-36786429');
 
             $table->integer('amount')->unsigned();

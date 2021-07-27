@@ -53,7 +53,7 @@ class EmailController extends Controller
      *
      * @return string
      */
-    public function username(string $field = NULL)
+    public function username()
     {
         $userInput = request()->input('username');
         if (is_numeric($userInput)) {
@@ -63,7 +63,7 @@ class EmailController extends Controller
         } else {
             $field = 'username';
         }
-        request()->merge([$field => $userInput]);
+        request()->merge([$field => \Illuminate\Support\Str::lower($userInput)]);
         return $field;
     }
 }

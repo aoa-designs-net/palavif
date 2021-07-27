@@ -38,7 +38,7 @@ class WalletController extends Controller
      */
     public function create()
     {
-        //
+        return redirect()->route('dashboard.wallet.index')->with('create_wallet_info', true);
     }
 
     /**

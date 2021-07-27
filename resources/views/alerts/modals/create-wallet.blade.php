@@ -80,6 +80,7 @@
                         <div class="col-sm-9">
                             <div class="input-group input-group-sm-down-break">
                                 <input readonly type="text" id="resolved_name_input" class="form-control" value="">
+                                <input type="hidden" id="resolved_account_uuid" name="resolved_account_uuid" value="">
                             </div>
                         </div>
                     </div>
@@ -144,12 +145,11 @@
             function resolve_account(account_number, selected_bank) {
                 // Ajax Request witht the details to fetch paystack resolver
                 $.ajax({
-                    url: "{{ route('wallet.create') }}",
+                    url: "{{ route('verification.bank_account') }}",
                     method: "POST",
                     dataType: "JSON",
                     data: {
-                        "_token": "{{ csrf_token() }}",
-                        "account_number_bank": account_number,
+                        "account_number": account_number,
                         "bank_code": selected_bank
                     },
                     beforeSend: function() {
@@ -160,14 +160,15 @@
                     success: function(data) {
                         if (data.status == true) {
                             $('#resolved_name_input').val(data.data.account_name)
+                            $('#resolved_account_uuid').val(data.data.uuid)
                             $('#resolved_name_div').removeClass('d-none')
                             $('#create_wallet_btn').removeAttr('disabled');
                         }
                     },
                     error: function(error) {
-                        if (error.responseJSON.message == 'The given data was invalid.') {
-                            return alert('The account number bank has already been taken.');
-                        }
+                        // if (error.responseJSON.message == 'The given data was invalid.') {
+                        //     return alert('The account number bank has already been taken.');
+                        // }
                         return alert(error.responseJSON.error);
                     },
                     complete: function(e, status) {

@@ -16,7 +16,7 @@ class UserWallet extends Model
      *
      * @var array
      */
-    protected $hidden = ['user_id', 'virtual_account_reference'];
+    protected $hidden = ['user_id', 'account_reference'];
 
     /**
      * The attributes that aren't mass assignable.

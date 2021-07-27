@@ -8,6 +8,7 @@
     <!-- Required Meta Tags Always Come First -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Favicon -->
     <link rel="shortcut icon" href="favicon.ico">
@@ -59,7 +60,7 @@
     <main id="content" role="main">
         <!-- Form -->
         <div class="d-flex align-items-center position-relative vh-lg-100">
-            <div class="col-lg-5 col-xl-4 d-none d-lg-flex align-items-center bg-light vh-lg-100 px-0" style="background-image: url(assets/svg/components/abstract-shapes-20.svg);">
+            <div class="col-lg-5 col-xl-4 d-none d-lg-flex align-items-center bg-light vh-lg-100 px-0">
                 <div class="w-100 p-5 ">
                     <blockquote class="blockquote text-secondary" style=" border-left: 0">
                         <p class="h3 mb-0 text-secondary">"Someone's sitting in the shade today because someone planted a tree a long time ago."</p>

@@ -14,7 +14,7 @@
     <!-- Form Group -->
     <div class="js-form-message form-group">
         <label class="input-label" for="signinUnique"><strong> Email or Username or Phone number </strong> </label>
-        <input type="text" style="background-color: #79443b00;" class="form-control" name="username" id="signinUnique" tabindex="1" placeholder="Enter your Email, Username or Phone Number" aria-label="Enter your Email, Username or Phone Number" required data-msg="Please enter a valid email address or username or phone number." autofocus>
+        <input type="text" tabindex="0" style="background-color: #79443b00;" class="form-control" name="username" id="signinUnique" tabindex="1" placeholder="Enter your Email, Username or Phone Number" aria-label="Enter your Email, Username or Phone Number" required data-msg="Please enter a valid email address or username or phone number." autofocus>
         @error('username')
         <x-alert :message="$message" />
         @enderror
@@ -23,13 +23,13 @@
 
     <!-- Form Group -->
     <div class="js-form-message form-group">
-        <label class="input-label" for="signinSrPassword" tabindex="0">
+        <label class="input-label" for="signinSrPassword">
             <span class="d-flex justify-content-between align-items-center">
                 <strong> Password </strong>
                 <a class="link-underline text-capitalize font-weight-normal" href="{{route('password.request')}}">Forgot Password?</a>
             </span>
         </label>
-        <input type="password" style="background-color: #79443b00;" class="form-control" name="password" id="signinSrPassword" tabindex="2" placeholder="Enter your 8+ characters password" aria-label="Enter your 8+ characters password" required data-msg="Your password is invalid. Please try again.">
+        <input type="password" tabindex="0" style="background-color: #79443b00;" class="form-control" name="password" id="signinSrPassword" tabindex="2" placeholder="Enter your 8+ characters password" aria-label="Enter your 8+ characters password" required data-msg="Your password is invalid. Please try again.">
         @error('password')
         <x-alert :message="$message" />
         @enderror

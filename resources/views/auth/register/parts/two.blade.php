@@ -11,8 +11,8 @@
         <div class="js-form-message form-group">
             <label class="input-label" for="yourUsername"><strong> Your Username </strong>
             </label>
-            <input type="text" class="form-control" minlength="5" name="your-username" id="yourUsername" placeholder="Choose your username" aria-label="Choose your username" data-msg="Please enter a valid username.">
-            @error('your-username')
+            <input type="text" class="form-control" minlength="5" name="your_username" id="yourUsername" placeholder="Choose your username" aria-label="Choose your username" data-msg="Please enter a valid username.">
+            @error('your_username')
             <x-alert :message="$message" />
             @enderror
         </div>
